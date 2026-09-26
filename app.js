@@ -1,5 +1,22 @@
 "use strict";
 
+if (location.protocol === "file:") {
+  const status = document.getElementById("converter-status");
+  status.textContent =
+    "PDF generation requires the online page. The Overleaf guide below works offline.";
+  const link = document.createElement("a");
+  link.href =
+    "https://minnesotanlp.github.io/minnesota-nlp-template-project-page/#converter";
+  link.className = "text-link";
+  link.textContent = " Open the online converter ↗";
+  status.append(link);
+} else {
+  import("./converter/ui.mjs").catch(() => {
+    document.getElementById("converter-status").textContent =
+      "The converter could not load. Reload the page, or follow the Overleaf guide below.";
+  });
+}
+
 (() => {
   const modes = {
     color: {

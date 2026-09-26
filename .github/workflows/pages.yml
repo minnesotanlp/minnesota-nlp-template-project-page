@@ -17,6 +17,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -25,12 +26,16 @@ jobs:
         uses: actions/checkout@v6
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Check project handling
+        run: node --test tests/project.test.mjs
+      - name: Prepare the browser compiler
+        run: python3 tools/prepare_runtime.py
       - name: Prepare the static site
         run: |
           node --check app.js
           mkdir _site
           cp index.html styles.css app.js .nojekyll _site/
-          cp -R assets downloads _site/
+          cp -R assets downloads converter vendor runtime _site/
       - name: Upload the site
         uses: actions/upload-pages-artifact@v4
         with:

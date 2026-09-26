@@ -1,11 +1,40 @@
 # Minnesota NLP LaTeX Style
 
-A one-line style overlay for conference papers, with an interactive setup guide.
+A browser converter and setup guide for the Minnesota NLP LaTeX style.
 
 **[Open the guide](https://minnesotanlp.github.io/minnesota-nlp-template-project-page/)** ·
 **[Download the style ZIP](https://minnesotanlp.github.io/minnesota-nlp-template-project-page/downloads/minnesotanlp.zip)**
 
-## How to use
+## ZIP to PDF
+
+1. Open [the converter](https://minnesotanlp.github.io/minnesota-nlp-template-project-page/#converter)
+   and choose the complete source ZIP exported from Overleaf, including your
+   conference style, figures, and bibliography.
+2. Confirm the main `.tex` file, Minnesota or Black style, and the compiler used
+   by your original project (pdfLaTeX, XeLaTeX, or LuaLaTeX). When the archive has
+   several main documents, select one explicitly.
+3. Click **Generate my PDF**, then download the PDF and the styled source ZIP.
+
+The converter adds the style package and logos to the main document's folder.
+Changed files are preserved as numbered `.bak` copies in the output ZIP. It
+does not alter the ZIP you selected. A failed build shows the LaTeX log and still
+lets you download the styled source for use with your usual Overleaf setup.
+
+Compilation runs in a Web Worker inside your browser. Document contents and
+generated PDFs are held in memory, not uploaded or stored by a compilation
+server. Clearing the project or leaving the page releases those files. The page
+downloads compiler assets from this site and missing TeX files by filename from
+`https://texlive2026.texlyre.org`; it does not send document bodies there.
+
+The first run downloads about **120 MB** of compiler assets. Extra TeX packages,
+fonts, or Biber may require additional downloads. Internet access and a recent
+desktop browser are recommended. Limits: **50 MB ZIP**, **150 MB extracted**,
+**50 MB per file**, **2,000 archive entries**, and **3 minutes per compilation**.
+Use UTF-8 for the main source. Native shell commands, external Python scripts,
+and automatic EPS conversion are not available. Check the PDF and any warnings
+in the log before sharing it.
+
+## How to use in Overleaf
 
 1. Upload your conference's official template to Overleaf, or open your existing
    paper project.
@@ -68,22 +97,35 @@ and `logos/` location shown above.
 
 ## Maintain the website
 
-The site is plain HTML, CSS, and JavaScript. There is no build or package install.
+The site uses plain HTML, CSS, and JavaScript. There is no npm build. To prepare
+the compiler for local testing, run the asset fetcher once with Python 3.11+:
 
 ```bash
+python3 tools/prepare_runtime.py
+node --test tests/project.test.mjs
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`, or open `index.html` directly for an offline preview.
-Edit `index.html`, `styles.css`, and `app.js` to update the guide. When refreshing
+The fetcher downloads a pinned upstream release (about 500 MB), verifies its
+SHA-256, and extracts only the required runtime files into the ignored
+`runtime/` directory. Large compiler binaries are not committed to Git.
+
+Open `http://localhost:8000`. Opening `index.html` directly still shows the guide;
+the converter needs an HTTP(S) server. Edit `index.html`, `styles.css`, `app.js`,
+and `converter/` to update the page and converter. When refreshing
 a style release, update the ZIP and demo PDFs in `downloads/` and their matching
 first-page preview images in `assets/` together. Template maintainers can copy
-the refreshed `docs/` contents from the style source repository.
+the refreshed `docs/assets/` and `docs/downloads/` from the style source repository.
+Maintain the live page and converter in this repository; the template repository
+also keeps a separate offline walkthrough.
 
 Push to `main` to deploy automatically through
 [the GitHub Pages workflow](.github/workflows/pages.yml). The workflow publishes
-only the page files, `assets/`, and `downloads/`. It can also be run manually from
+the page files, `assets/`, `downloads/`, `converter/`, `vendor/`, and the verified
+compiler runtime. It can also be run manually from
 the repository's Actions tab. GitHub Pages uses **GitHub Actions** as its source.
 
 The bundled, unmodified Pretendard font includes its
 [SIL Open Font License](assets/fonts/LICENSE.txt).
+Browser compiler sources, pinned dependency versions, and licenses are listed in
+[the compiler credits](converter/THIRD_PARTY.md).
