@@ -88,6 +88,24 @@ For local writing, follow the same steps in your paper directory and compile
 with your usual engine. For example, for a pdfLaTeX project with `latexmk`
 installed, run `latexmk -pdf main.tex` from that directory.
 
+## Update an existing project
+
+**v2.0.2** fixes overflowing shared author rows and strengthens ICLR review-line
+removal. In Minnesota and Black modes, long author rows wrap to the page width,
+bold names stay together, and author notes and affiliations are preserved.
+`\And`, `\AND`, and explicit `\\` line breaks still work.
+
+- **Browser converter:** reload [the page](https://minnesotanlp.github.io/minnesota-nlp-template-project-page/#converter),
+  select your source ZIP again, and generate a new PDF. The output ZIP includes
+  the latest style and backups of replaced files.
+- **Overleaf or local LaTeX:** download the latest [style ZIP](https://minnesotanlp.github.io/minnesota-nlp-template-project-page/downloads/minnesotanlp.zip),
+  replace `minnesotanlp.sty` and its two logo files in your project, then recompile.
+
+Keep one `minnesotanlp` package line after the other packages. Previously
+downloaded project copies do not update automatically. If author overflow or
+review numbers persist, check the loaded style version in the compilation log
+and include a minimal example when reporting the issue.
+
 ## Compatibility and support
 
 Tested with ICLR 2027, NeurIPS 2026, ACL's shared template, ICML 2025, CVPR 2026,
