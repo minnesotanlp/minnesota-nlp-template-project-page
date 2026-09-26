@@ -11,7 +11,7 @@ if (location.protocol === "file:") {
   link.textContent = " Open the online converter ↗";
   status.append(link);
 } else {
-  import("./converter/ui.mjs").catch(() => {
+  import("./converter/ui.mjs?v=2.0.2").catch(() => {
     document.getElementById("converter-status").textContent =
       "The converter could not load. Reload the page, or follow the Overleaf guide below.";
   });

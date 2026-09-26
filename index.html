@@ -12,7 +12,7 @@
     <link rel="icon" href="assets/nlp-logo.png" type="image/png" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="converter/converter.css" />
-    <script src="app.js?v=2" defer></script>
+    <script src="app.js?v=3" defer></script>
     <link
       rel="canonical"
       href="https://minnesotanlp.github.io/minnesota-nlp-template-project-page/"
@@ -668,6 +668,21 @@
             ></a>
           </div>
           <div class="faq-list">
+            <details>
+              <summary>
+                <span>Is this the conference camera-ready version?</span
+                ><svg class="icon" aria-hidden="true">
+                  <use href="#icon-plus"></use>
+                </svg>
+              </summary>
+              <p>
+                Minnesota and Black modes create a Minnesota preprint with
+                visible authors, no review line numbers, and long author rows
+                that wrap to fit the page. For the official conference
+                camera-ready layout, use \usepackage[off]{minnesotanlp} and
+                your conference’s final setting, such as \iclrfinalcopy for ICLR.
+              </p>
+            </details>
             <details>
               <summary>
                 <span>Do I need to clone the repo or install Python?</span

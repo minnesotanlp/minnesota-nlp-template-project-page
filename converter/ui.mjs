@@ -190,7 +190,7 @@ form.addEventListener("submit", async (event) => {
   try {
     const response = await fetch(
       new URL("../downloads/minnesotanlp.zip", import.meta.url),
-      { signal },
+      { signal, cache: "no-cache" },
     );
     if (!response.ok)
       throw new Error(

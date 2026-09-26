@@ -72,6 +72,10 @@ setting. Minnesota and Black modes display author information. In those two
 modes, single-line figure and table captions are centered; longer captions are
 justified.
 
+Minnesota and Black modes produce a **Minnesota preprint**: review line numbers
+are removed and long shared author rows wrap to fit. For the official conference
+camera-ready layout, use `[off]` with its final setting (e.g. `\iclrfinalcopy` for ICLR).
+
 Optional metadata goes after the package line and is harmless in `[off]` mode:
 
 ```latex
